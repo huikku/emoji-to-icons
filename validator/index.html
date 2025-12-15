@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Color+Emoji&family=Noto+Emoji:wght@300..700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Barlow', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bg: {
+              primary: '#0A0C0E',   // Main background (Deep Void)
+              secondary: '#14171C', // Component background (Dark Plate)
+            },
+            frame: '#1E2328',       // Panel backgrounds (Lighter Plate)
+            text: {
+              primary: '#C1C5C8',   // Main text (High readability)
+              muted: '#6F7477',     // Secondary text / metadata
+            },
+            accent: {
+              green: {
+                active: '#3FFF59',
+                idle: '#1C8E32',
+              },
+              amber: {
+                active: '#E79C35',
+                idle: '#A06715',
+              },
+              red: {
+                active: '#C32D2D',
+                idle: '#6C1B1B',
+              },
+              blue: {
+                active: '#68A9EC',
+                idle: '#305575',
+              },
+            },
+            metal: {
+              base: '#6F7477',
+              trim: '#464B4E',
+              highlight: '#C1C5C8',
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>validator</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

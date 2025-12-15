@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+   Using Tailwind CSS via CDN as per Agent Instructions.
+   This file is kept for potential custom overrides not covered by utility classes.
+*/
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #0A0C0E;
+    /* bg-primary fallback */
+    color: #C1C5C8;
+    /* text-primary fallback */
+    font-family: 'Barlow', sans-serif;
+}
+
+#root {
+    height: 100%;
+}
+
+/*
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #0f172a;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #e2e8f0;
+}
+
+#root {
+    width: 100%;
+}
+
+button {
+    border-radius: 6px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 0.9em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button.primary {
+    background-color: #3b82f6;
+    color: white;
+}
+
+button.primary:hover {
+    background-color: #2563eb;
+}
+
+button.danger {
+    background-color: #ef4444;
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+    min-height: 160px;
+}
+
+.card:hover {
+    border-color: #475569;
+}
+
+.card.rejected {
+    background: #450a0a;
+    border-color: #dc2626;
+}
+
+.emoji-display {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.icon-name {
+    font-size: 0.8rem;
+    font-family: monospace;
+    color: #94a3b8;
+    text-align: center;
+    word-break: break-all;
+}
+
+.card.rejected .icon-name {
+    color: #fca5a5;
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.tab {
+    background: transparent;
+    border: 1px solid #334155;
+    color: #94a3b8;
+}
+
+.tab.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+*/
+.preview-icon {
+    margin-top: 0.5rem;
+    color: #38bdf8;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 600px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+textarea {
+    background: #0f172a;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: monospace;
+    min-height: 300px;
+}
