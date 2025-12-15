@@ -1,0 +1,40 @@
+{
+  "name": "emoji-to-icons",
+  "version": "1.0.0",
+  "description": "Convert emojis to professional SVG icons from Lucide, Heroicons, and Material Icons",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "lint": "eslint src/"
+  },
+  "keywords": [
+    "emoji",
+    "icons",
+    "lucide",
+    "heroicons",
+    "material-design",
+    "svg",
+    "mapping"
+  ],
+  "author": "Huikku",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "tsup": "^8.0.0",
+    "vitest": "^1.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
+}
