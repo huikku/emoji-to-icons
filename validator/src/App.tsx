@@ -9,7 +9,7 @@ import * as PiIcons from 'react-icons/pi';
 import * as TbIcons from 'react-icons/tb';
 import * as BiIcons from 'react-icons/bi';
 import * as emoji from 'node-emoji';
-import { vote, isFirebaseConfigured, getVotes } from './firebase';
+import { vote, isFirebaseConfigured, getVotes, submitSuggestion } from './firebase';
 import type { VoteCounts } from './firebase';
 
 
@@ -280,7 +280,13 @@ function App() {
 
 
 
+
   const selectCandidate = (emoji: string, iconName: string) => {
+    // Record suggestion to Firebase (fire and forget)
+    if (firebaseReady) {
+      submitSuggestion(emoji, activeStyle, iconName);
+    }
+
     setModifications(prev => {
       const styleMods = prev[activeStyle] || {};
       const newMods = { ...styleMods, [emoji]: iconName };

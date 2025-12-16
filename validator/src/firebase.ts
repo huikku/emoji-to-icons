@@ -30,12 +30,12 @@ export interface VoteCounts {
 
 export async function getVotes(emoji: string, library: string): Promise<VoteCounts | null> {
   if (!db) return null;
-  
+
   try {
     const voteId = createVoteId(emoji, library);
     const docRef = doc(db, 'votes', voteId);
     const docSnap = await getDoc(docRef);
-    
+
     if (docSnap.exists()) {
       const data = docSnap.data();
       return { upvotes: data.upvotes || 0, downvotes: data.downvotes || 0 };
@@ -54,12 +54,12 @@ export async function vote(
   type: 'up' | 'down'
 ): Promise<boolean> {
   if (!db) return false;
-  
+
   try {
     const voteId = createVoteId(emoji, library);
     const docRef = doc(db, 'votes', voteId);
     const docSnap = await getDoc(docRef);
-    
+
     if (docSnap.exists()) {
       // Update existing document
       await updateDoc(docRef, {
@@ -78,6 +78,43 @@ export async function vote(
     return true;
   } catch (error) {
     console.error('Error voting:', error);
+    return false;
+  }
+  return true;
+} catch (error) {
+  console.error('Error voting:', error);
+  return false;
+}
+}
+
+/**
+ * Record a user's suggestion for a different icon (or rejection)
+ */
+export async function submitSuggestion(
+  emoji: string,
+  library: string,
+  proposedIcon: string
+): Promise<boolean> {
+  if (!db) return false;
+
+  try {
+    // strict sanitization for doc ID
+    const safeIcon = proposedIcon.replace(/[^a-zA-Z0-9-_]/g, '');
+    const suggestionId = `${createVoteId(emoji, library)}_${safeIcon}`;
+    const docRef = doc(db, 'suggestions', suggestionId);
+
+    // Use setDoc with merge to handle both creation and increment
+    await setDoc(docRef, {
+      emoji,
+      library,
+      proposedIcon,
+      count: increment(1),
+      lastUpdated: new Date()
+    }, { merge: true });
+
+    return true;
+  } catch (error) {
+    console.error('Error submitting suggestion:', error);
     return false;
   }
 }
