@@ -24,6 +24,8 @@ We currently support mappings for **7 major icon libraries**:
 
 | Library | Key | Emojis Mapped |
 |---------|-----|---------------|
+| **Noto Color Emoji** | `noto-color` | ~1570 |
+| **Noto Emoji (Mono)** | `noto` | ~1570 |
 | **Tabler Icons** | `tabler` | ~930 |
 | **Phosphor Icons** | `phosphor` | ~820 |
 | **Material Icons** | `material` | ~760 |
