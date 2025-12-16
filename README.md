@@ -93,13 +93,31 @@ const emojis = getSupportedEmojis('lucide');
 console.log(emojis); // ['🤖', '🧠', '🔒', ...]
 ```
 
+## 🔍 Validate Mappings
+
+Use our interactive validator to review and spot-check emoji-to-icon mappings:
+
+**[Open the Validator →](https://huikku.github.io/emoji-to-icons/)**
+
+The validator displays all emoji mappings side-by-side with their corresponding icons, making it easy to identify mismatches or poor mappings.
+
 ## 🤝 Contributing
 
-We welcome contributions! If you find an emoji that isn't mapped, or a mapping that could be better:
+We welcome contributions! There are two easy ways to help:
 
-1.  Fork the repo.
-2.  Edit `src/mappings/<library>.ts`.
-3.  Submit a Pull Request.
+### Option 1: Use the Validator (No Coding Required!)
+
+1. Open the [Emoji Mapping Validator](https://huikku.github.io/emoji-to-icons/)
+2. Browse through the mappings for any icon library
+3. If you spot a mismatch (emoji doesn't match its icon), click the issue link or [open an issue](https://github.com/huikku/emoji-to-icons/issues/new) with:
+   - The emoji and its current mapping
+   - A suggested better icon name (if you have one)
+
+### Option 2: Submit a Pull Request
+
+1. Fork the repo.
+2. Edit `src/mappings/<library>.ts`.
+3. Submit a Pull Request.
 
 ## 📄 License
 
