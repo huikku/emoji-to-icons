@@ -15,12 +15,12 @@ It is designed for:
 
 - **Semantic Mapping**: Intelligent conversion (e.g., 🧠 → `brain`, 🔒 → `lock`).
 - **Framework Agnostic**: Returns simple strings (icon names), not React/Vue components.
-- **Micro-Library**: Zero runtime dependencies.
+- **Minimal Dependencies**: Lightweight and fast.
 - **Typing**: Fully typed with TypeScript.
 
 ## 📦 Supported Libraries
 
-We currently support mappings for **7 major icon libraries**:
+We currently support mappings for **11 major icon libraries**:
 
 | Library | Key | Emojis Mapped |
 |---------|-----|---------------|

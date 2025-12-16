@@ -4,6 +4,7 @@
  */
 export const emojiToHeroIcon: Record<string, string> = {
   "💯": "HiBattery100",
+  "🤖": "HiCpuChip",
   "😄": "HiFaceSmile",
   "😅": "HiFaceSmile",
   "🙂": "HiFaceFrown",

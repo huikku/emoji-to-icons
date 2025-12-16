@@ -7,3 +7,6 @@ export * from './fontawesome';
 export * from './feather';
 export * from './remix';
 export * from './phosphor';
+export * from './tabler';
+export * from './boxicons';
+export * from './noto';

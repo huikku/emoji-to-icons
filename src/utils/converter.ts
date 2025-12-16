@@ -5,8 +5,11 @@ import { emojiToFontAwesome } from '../mappings/fontawesome';
 import { emojiToFeather } from '../mappings/feather';
 import { emojiToRemix } from '../mappings/remix';
 import { emojiToPhosphor } from '../mappings/phosphor';
+import { emojiToTabler } from '../mappings/tabler';
+import { emojiToBoxicons } from '../mappings/boxicons';
+import { emojiToNoto } from '../mappings/noto';
 
-export type IconStyle = 'lucide' | 'heroicons' | 'material' | 'fontawesome' | 'feather' | 'remix' | 'phosphor';
+export type IconStyle = 'lucide' | 'heroicons' | 'material' | 'fontawesome' | 'feather' | 'remix' | 'phosphor' | 'tabler' | 'boxicons' | 'noto-color' | 'noto-mono';
 
 const mappings: Record<IconStyle, Record<string, string>> = {
     lucide: emojiToLucideIcon,
@@ -15,13 +18,17 @@ const mappings: Record<IconStyle, Record<string, string>> = {
     fontawesome: emojiToFontAwesome,
     feather: emojiToFeather,
     remix: emojiToRemix,
-    phosphor: emojiToPhosphor
+    phosphor: emojiToPhosphor,
+    tabler: emojiToTabler,
+    boxicons: emojiToBoxicons,
+    'noto-color': emojiToNoto,
+    'noto-mono': emojiToNoto
 };
 
 /**
  * Convert a single emoji to an icon name
  * @param emoji The emoji character (e.g. '🤖')
- * @param style The icon set legacy (e.g. 'lucide')
+ * @param style The icon set library (e.g. 'lucide')
  * @returns The icon name (e.g. 'bot') or undefined if not found
  */
 export function emojiToIcon(emoji: string, style: IconStyle): string | undefined {

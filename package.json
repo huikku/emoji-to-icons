@@ -12,6 +12,12 @@
       "require": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",

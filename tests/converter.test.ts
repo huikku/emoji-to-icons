@@ -13,8 +13,8 @@ describe('converter', () => {
         });
 
         it('should convert valid emojis to heroicons', () => {
-            expect(emojiToIcon('🤖', 'heroicons')).toBe('CpuChipIcon');
-            expect(emojiToIcon('🔥', 'heroicons')).toBe('FireIcon');
+            expect(emojiToIcon('🤖', 'heroicons')).toBe('HiCpuChip');
+            expect(emojiToIcon('🔥', 'heroicons')).toBe('HiFire');
         });
 
         // We can add more tests for other styles later, e.g. heroicons
