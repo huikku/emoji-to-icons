@@ -350,8 +350,15 @@ function App() {
 
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5">
           {items.map(([emojiChar, defaultIcon]) => {
-            const isModified = !!modifications[activeStyle]?.[emojiChar];
-            const currentIconName = modifications[activeStyle]?.[emojiChar] || defaultIcon;
+            const modification = modifications[activeStyle]?.[emojiChar];
+            const isRejected = modification === 'REJECTED';
+            const isModified = !!modification;
+            const currentIconName = modification || defaultIcon;
+
+            // If rejected, render default icon but styled differently.
+            // If normal modification, render modification.
+            const iconToRender = isRejected ? defaultIcon : currentIconName;
+
             const candidates = CANDIDATES[activeStyle]?.[emojiChar] || [];
             const hasCandidates = candidates.length > 0;
             const emojiName = emoji.find(emojiChar)?.key || 'unknown';
@@ -360,13 +367,17 @@ function App() {
               <div
                 key={emojiChar}
                 className={`relative group bg-frame border rounded-md p-4 flex flex-col items-center gap-4 transition-all duration-200
-                  ${isModified
-                    ? 'border-accent-amber-idle/50 shadow-[0_0_15px_rgba(231,156,53,0.1)]'
-                    : 'border-metal-trim hover:border-metal-highlight hover:shadow-lg hover:shadow-black/50'
+                  ${isRejected
+                    ? 'bg-accent-red-idle/5 border-accent-red-active/50 shadow-[0_0_15px_rgba(255,59,48,0.1)]'
+                    : isModified
+                      ? 'border-accent-amber-idle/50 shadow-[0_0_15px_rgba(231,156,53,0.1)]'
+                      : 'border-metal-trim hover:border-metal-highlight hover:shadow-lg hover:shadow-black/50'
                   }`}
               >
                 {/* Status Indicator Line */}
-                <div className={`absolute top-0 left-0 w-full h-[2px] rounded-t-md ${isModified ? 'bg-accent-amber-active' : 'bg-transparent group-hover:bg-metal-highlight/50'}`} />
+                <div className={`absolute top-0 left-0 w-full h-[2px] rounded-t-md 
+                    ${isRejected ? 'bg-accent-red-active' : isModified ? 'bg-accent-amber-active' : 'bg-transparent group-hover:bg-metal-highlight/50'}`}
+                />
 
                 <div className="w-full flex justify-between items-start text-xs font-mono text-text-muted">
                   <span className="truncate max-w-[120px]" title={emojiName}>{emojiName}</span>
@@ -377,21 +388,23 @@ function App() {
                 </div>
 
                 <div className={`px-2 py-1 rounded-sm text-xs font-mono border max-w-full truncate text-center transition-colors
-                   ${isModified
-                    ? 'bg-accent-amber-idle/10 border-accent-amber-idle text-accent-amber-active'
-                    : 'bg-bg-primary border-metal-trim text-text-muted group-hover:text-text-primary group-hover:border-metal-highlight'
+                   ${isRejected
+                    ? 'bg-accent-red-idle/10 border-accent-red-active text-accent-red-active'
+                    : isModified
+                      ? 'bg-accent-amber-idle/10 border-accent-amber-idle text-accent-amber-active'
+                      : 'bg-bg-primary border-metal-trim text-text-muted group-hover:text-text-primary group-hover:border-metal-highlight'
                   }`}
-                  title={currentIconName}
+                  title={isRejected ? 'REJECTED' : currentIconName}
                 >
-                  {currentIconName}
+                  {isRejected ? 'REJECTED' : currentIconName}
                 </div>
 
-                <div className="h-12 w-12 flex items-center justify-center text-accent-blue-active transition-all"
+                <div className={`h-12 w-12 flex items-center justify-center transition-all ${isRejected ? 'opacity-50 grayscale contrast-125' : 'text-accent-blue-active'}`}
                   style={{
                     filter: getMonoFilter(),
                     color: getMonoColor()
                   }}>
-                  <IconPreview style={activeStyle} name={currentIconName} emojiChar={emojiChar} />
+                  <IconPreview style={activeStyle} name={iconToRender} emojiChar={emojiChar} />
                 </div>
 
                 <div className="flex gap-1 mt-auto pt-2 opacity-40 group-hover:opacity-100 transition-opacity w-full justify-center">
