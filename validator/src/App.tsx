@@ -175,6 +175,8 @@ function App() {
     const saved = localStorage.getItem('emoji-validator-mods');
     return saved ? JSON.parse(saved) : {};
   });
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [reportView, setReportView] = useState<'list' | 'json'>('list');
   const [showReport, setShowReport] = useState(false);
   type MonoMode = 'off' | 'light' | 'dark';
   const [monoMode, setMonoMode] = useState<MonoMode>('off');
@@ -183,6 +185,12 @@ function App() {
     if (monoMode === 'off') setMonoMode('light');
     else if (monoMode === 'light') setMonoMode('dark');
     else setMonoMode('off');
+  };
+
+  const confirmClearModifications = () => {
+    setModifications({});
+    localStorage.removeItem('emoji-validator-mods');
+    setShowResetConfirm(false);
   };
 
   const getMonoFilter = () => {
@@ -202,10 +210,7 @@ function App() {
   };
 
   const clearModifications = () => {
-    if (confirm('Are you sure you want to clear all modifications?')) {
-      setModifications({});
-      localStorage.removeItem('emoji-validator-mods');
-    }
+    setShowResetConfirm(true);
   };
 
   const selectCandidate = (emoji: string, iconName: string) => {
@@ -313,7 +318,7 @@ function App() {
 
               {Object.keys(modifications).length > 0 && (
                 <button
-                  onClick={clearModifications}
+                  onClick={() => setShowResetConfirm(true)}
                   className="px-4 py-2 bg-accent-red-idle/20 border border-accent-red-idle text-accent-red-active hover:bg-accent-red-idle/40 hover:text-white rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
                 >
                   RESET
@@ -430,11 +435,58 @@ function App() {
         </div>
       </div>
 
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-8 z-50">
+          <div className="bg-[#14171C] border border-accent-red-active/50 rounded-lg w-full max-w-md shadow-[0_0_30px_rgba(255,59,48,0.2)] relative animated-modal">
+            <div className="p-6 border-b border-[#464B4E] bg-[#1E2328] flex items-center text-accent-red-active gap-3">
+              <span className="text-2xl">⚠</span>
+              <h2 className="text-xl font-semibold tracking-wide font-sans uppercase">Confirm Reset</h2>
+            </div>
+            <div className="p-6 bg-[#0A0C0E] text-[#C1C5C8]">
+              <p className="mb-4">Are you sure you want to clear all modifications? This action cannot be undone.</p>
+              <div className="text-xs font-mono text-[#6F7477]">
+                Total Modifications: <span className="text-accent-red-active">{Object.values(modifications).reduce((acc, m) => acc + Object.keys(m).length, 0)}</span>
+              </div>
+            </div>
+            <div className="p-4 border-t border-[#464B4E] bg-[#1E2328] flex justify-end gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="px-6 py-2 bg-transparent border border-[#464B4E] text-[#6F7477] hover:text-white hover:border-[#C1C5C8] rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmClearModifications}
+                className="px-6 py-2 bg-accent-red-idle border border-accent-red-active text-white rounded-sm text-sm font-medium uppercase tracking-wider hover:bg-accent-red-active hover:shadow-[0_0_15px_rgba(255,59,48,0.4)] transition-all"
+              >
+                Confirm Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showReport && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-8 z-50">
           <div className="bg-[#14171C] border border-[#464B4E] rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl relative">
-            <div className="flex justify-between items-center p-6 border-b border-[#464B4E] bg-[#1E2328]">
-              <h2 className="text-xl font-semibold tracking-wide text-[#C1C5C8] font-sans uppercase">Modification Report</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-center p-6 border-b border-[#464B4E] bg-[#1E2328] gap-4">
+              <div className="flex items-center gap-4">
+                <h2 className="text-xl font-semibold tracking-wide text-[#C1C5C8] font-sans uppercase">Modification Report</h2>
+                <div className="flex bg-[#0A0C0E] p-1 rounded-sm border border-[#464B4E]">
+                  <button
+                    onClick={() => setReportView('list')}
+                    className={`px-3 py-1 text-xs font-mono uppercase transition-all rounded-sm ${reportView === 'list' ? 'bg-[#305575] text-white' : 'text-[#6F7477] hover:text-[#C1C5C8]'}`}
+                  >
+                    List
+                  </button>
+                  <button
+                    onClick={() => setReportView('json')}
+                    className={`px-3 py-1 text-xs font-mono uppercase transition-all rounded-sm ${reportView === 'json' ? 'bg-[#305575] text-white' : 'text-[#6F7477] hover:text-[#C1C5C8]'}`}
+                  >
+                    JSON
+                  </button>
+                </div>
+              </div>
               <button
                 onClick={() => setShowReport(false)}
                 className="text-[#6F7477] hover:text-white transition-colors text-2xl"
@@ -442,10 +494,43 @@ function App() {
                 ×
               </button>
             </div>
-            <div className="p-0 flex-1 overflow-hidden relative min-h-[200px]">
-              <pre className="w-full h-full p-6 overflow-auto bg-[#0A0C0E] text-xs font-mono text-[#3FFF59] selection:bg-[#1C8E32] selection:text-white whitespace-pre-wrap">
-                {reportData}
-              </pre>
+            <div className="p-0 flex-1 overflow-hidden relative min-h-[400px] flex flex-col bg-[#0A0C0E]">
+              {reportView === 'json' ? (
+                <pre className="w-full h-full p-6 overflow-auto text-xs font-mono text-[#3FFF59] selection:bg-[#1C8E32] selection:text-white whitespace-pre-wrap">
+                  {reportData}
+                </pre>
+              ) : (
+                <div className="w-full h-full overflow-auto">
+                  {Object.keys(modifications).length === 0 ? (
+                    <div className="flex items-center justify-center h-full text-[#6F7477] font-mono uppercase">
+                      No modifications yet.
+                    </div>
+                  ) : (
+                    <table className="w-full text-left text-sm font-mono border-collapse">
+                      <thead className="bg-[#1E2328] text-[#C1C5C8] sticky top-0 border-b border-[#464B4E]">
+                        <tr>
+                          <th className="p-4 font-normal uppercase tracking-wider">Style</th>
+                          <th className="p-4 font-normal uppercase tracking-wider">Emoji</th>
+                          <th className="p-4 font-normal uppercase tracking-wider">Assigned Icon</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#1E2328]">
+                        {Object.entries(modifications).flatMap(([style, mods]) =>
+                          Object.entries(mods).map(([char, icon]) => (
+                            <tr key={`${style}-${char}`} className="hover:bg-[#14171C] text-[#C1C5C8]">
+                              <td className="p-4 text-[#6F7477]">{style}</td>
+                              <td className="p-4 text-2xl">{char}</td>
+                              <td className={`p-4 ${icon === 'REJECTED' ? 'text-[#FF4444]' : 'text-[#3FFF59]'}`}>
+                                {icon}
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              )}
             </div>
             <div className="p-4 border-t border-[#464B4E] bg-[#1E2328] flex justify-end gap-3 flex-wrap">
               <button
