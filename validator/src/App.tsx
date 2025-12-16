@@ -418,13 +418,13 @@ function App() {
 
                   {!activeStyle.startsWith('noto') && (
                     <button
-                      onClick={() => selectCandidate(emojiChar, 'REJECTED')}
+                      onClick={() => selectCandidate(emojiChar, isRejected ? defaultIcon : 'REJECTED')}
                       className={`h-8 w-8 flex items-center justify-center rounded-sm border transition-all font-mono text-sm leading-none
-                           ${currentIconName === 'REJECTED'
+                           ${isRejected
                           ? 'bg-accent-red-idle border-accent-red-active text-white'
                           : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-white hover:border-accent-red-active hover:bg-accent-red-idle/20'
                         }`}
-                      title="Reject / No Match"
+                      title={isRejected ? "Un-reject / Restore Default" : "Reject / No Match"}
                     >
                       ✕
                     </button>
