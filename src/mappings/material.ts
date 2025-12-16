@@ -696,7 +696,7 @@ export const emojiToMaterialIcon: Record<string, string> = {
   "↩️": "MdArrowCircleDown",
   "⤴️": "MdArrowCircleDown",
   "⤵️": "MdArrowCircleDown",
-  "ℹ️": "MdPermDeviceInformation",
+  ℹ️: "MdPermDeviceInformation",
   "🔤": "MdAbc",
   "🔣": "MdEmojiSymbols",
   "🎵": "MdNote",
@@ -761,5 +761,5 @@ export const emojiToMaterialIcon: Record<string, string> = {
   "🇬🇸": "MdSouth",
   "🇸🇸": "MdSouth",
   "🇻🇦": "MdOpacity",
-  "🏴‍☠️": "MdFlag"
+  "🏴‍☠️": "MdFlag",
 };

@@ -825,5 +825,5 @@ export const emojiToPhosphor: Record<string, string> = {
   "🇸🇽": "PiArrowsInThin",
   "🇱🇰": "PiArrowFatLinesRightBold",
   "🇦🇪": "PiUniteDuotone",
-  "🇺🇳": "PiUniteDuotone"
+  "🇺🇳": "PiUniteDuotone",
 };

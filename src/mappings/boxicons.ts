@@ -669,5 +669,5 @@ export const emojiToBoxicons: Record<string, string> = {
   "🇱🇰": "BiChevronsRight",
   "🇹🇬": "BiCoffeeTogo",
   "🇻🇦": "BiSolidCity",
-  "🏴‍☠️": "BiFlag"
+  "🏴‍☠️": "BiFlag",
 };

@@ -324,7 +324,7 @@ export const emojiToRemix: Record<string, string> = {
   "↕️": "RiArrowUpDownLine",
   "⤴️": "RiHeading",
   "⤵️": "RiHeading",
-  "ℹ️": "RiInformationLine",
+  ℹ️: "RiInformationLine",
   "✔️": "RiCheckLine",
   "🔃": "RiClockwiseLine",
   "♾": "RiInfinityLine",
@@ -706,5 +706,5 @@ export const emojiToRemix: Record<string, string> = {
   "🇳🇿": "RiChatNewFill",
   "🇵🇬": "RiChatNewFill",
   "🇸🇲": "RiFontSansSerif",
-  "🇸🇹": "RiCustomerService2Fill"
+  "🇸🇹": "RiCustomerService2Fill",
 };

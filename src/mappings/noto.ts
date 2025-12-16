@@ -1231,7 +1231,7 @@ export const emojiToNoto: Record<string, string> = {
   "⤴️": "2934",
   "⤵️": "2935",
   "#️⃣": "23-20e3",
-  "ℹ️": "2139",
+  ℹ️: "2139",
   "🔤": "1f524",
   "🔡": "1f521",
   "🔠": "1f520",
@@ -1573,5 +1573,5 @@ export const emojiToNoto: Record<string, string> = {
   "🇿🇲": "1f1ff-1f1f2",
   "🇿🇼": "1f1ff-1f1fc",
   "🇺🇳": "1f1fa-1f1f3",
-  "🏴‍☠️": "1f3f4-200d-2620"
+  "🏴‍☠️": "1f3f4-200d-2620",
 };

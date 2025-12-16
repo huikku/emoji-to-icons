@@ -834,7 +834,7 @@ export const emojiToTabler: Record<string, string> = {
   "⤴️": "TbArrowAutofitContentFilled",
   "⤵️": "TbArrowAutofitContentFilled",
   "#️⃣": "TbHash",
-  "ℹ️": "TbBrandOpenSourceFilled",
+  ℹ️: "TbBrandOpenSourceFilled",
   "🔤": "TbAbc",
   "🔣": "TbMathSymbols",
   "🎵": "TbNote",
@@ -927,5 +927,5 @@ export const emojiToTabler: Record<string, string> = {
   "🇦🇪": "TbAlphabetArabic",
   "🇻🇦": "TbBrandCitymapper",
   "🇿🇼": "TbCurrencyDollarZimbabwean",
-  "🏴‍☠️": "TbFlag"
+  "🏴‍☠️": "TbFlag",
 };

@@ -834,7 +834,7 @@ export const emojiToFontAwesome: Record<string, string> = {
   "↪️": "FaArrowDown19",
   "↩️": "FaArrowDown19",
   "#️⃣": "FaHashnode",
-  "ℹ️": "FaSourcetree",
+  ℹ️: "FaSourcetree",
   "〰️": "FaDashcube",
   "➰": "FaPersonWalkingArrowLoopLeft",
   "🔃": "FaArrowsDownToLine",
@@ -871,5 +871,5 @@ export const emojiToFontAwesome: Record<string, string> = {
   "🇵🇬": "FaHackerNews",
   "🇸🇲": "FaMarsAndVenusBurst",
   "🇿🇦": "FaEarthAfrica",
-  "🇱🇰": "FaAnglesRight"
+  "🇱🇰": "FaAnglesRight",
 };

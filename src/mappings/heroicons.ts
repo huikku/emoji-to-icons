@@ -426,7 +426,7 @@ export const emojiToHeroIcon: Record<string, string> = {
   "⤴️": "HiArchiveBoxArrowDown",
   "⤵️": "HiArchiveBoxArrowDown",
   "#️⃣": "HiHashtag",
-  "ℹ️": "HiInformationCircle",
+  ℹ️: "HiInformationCircle",
   "🎵": "HiMusicalNote",
   "🎶": "HiBanknotes",
   "✔️": "HiCheck",
@@ -475,5 +475,5 @@ export const emojiToHeroIcon: Record<string, string> = {
   "🇵🇬": "HiNewspaper",
   "🇿🇦": "HiGlobeEuropeAfrica",
   "🇱🇰": "HiArrowsRightLeft",
-  "🏴‍☠️": "HiFlag"
+  "🏴‍☠️": "HiFlag",
 };

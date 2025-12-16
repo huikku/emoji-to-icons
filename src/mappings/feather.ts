@@ -414,5 +414,5 @@ export const emojiToFeather: Record<string, string> = {
   "🗨": "FiAlignLeft",
   "🇮🇲": "FiCommand",
   "🇸🇲": "FiCodesandbox",
-  "🇱🇰": "FiChevronsRight"
+  "🇱🇰": "FiChevronsRight",
 };
