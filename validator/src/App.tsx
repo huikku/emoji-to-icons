@@ -562,13 +562,11 @@ function App() {
               </button>
               <button
                 onClick={() => {
-                  const subject = encodeURIComponent('Emoji Validator Report');
-                  const body = encodeURIComponent('Please find the attached emoji modification report.');
-                  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                  window.open('https://github.com/huikku/emoji-to-icons/issues/new?title=Emoji%20Validator%20Report&body=Please%20paste%20the%20report%20content%20here.', '_blank');
                 }}
                 className="px-6 py-2 bg-bg-secondary border border-metal-trim text-text-primary rounded-sm text-sm font-medium uppercase tracking-wider hover:bg-frame hover:text-white transition-all"
               >
-                Email
+                Open GitHub Issue
               </button>
               <button
                 onClick={() => navigator.clipboard.writeText(reportData)}
