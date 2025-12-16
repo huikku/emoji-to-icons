@@ -255,6 +255,8 @@ function App() {
   // Calculate generic Categories for dropdown
   const categories = ['All', 'Action', 'Alert', 'Audio & Video', 'Communication', 'Content', 'Device', 'Editor', 'File', 'Hardware', 'Home', 'Image', 'Maps', 'Navigation', 'Notification', 'Places', 'Search', 'Social', 'Toggle', 'Other'];
 
+  const reportData = useMemo(() => JSON.stringify(modifications, null, 2), [modifications]);
+
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary font-sans p-8 selection:bg-accent-blue-idle selection:text-white">
       <div className="max-w-[1600px] mx-auto">
