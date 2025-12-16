@@ -48,7 +48,7 @@ const toPascalCase = (str: string) =>
   str.replace(/(^\w|-\w|_\w)/g, (c) => c.replace(/[-_]/, '').toUpperCase());
 
 function getIconComponent(style: IconStyle, name: string) {
-  if (!name) return null;
+  if (!name || name === 'REJECTED') return null;
 
   try {
     switch (style) {
@@ -389,8 +389,8 @@ function App() {
                   <IconPreview style={activeStyle} name={currentIconName} emojiChar={emojiChar} />
                 </div>
 
-                {hasCandidates && !activeStyle.startsWith('noto') && (
-                  <div className="flex gap-1 mt-auto pt-2 opacity-40 group-hover:opacity-100 transition-opacity">
+                <div className="flex gap-1 mt-auto pt-2 opacity-40 group-hover:opacity-100 transition-opacity w-full justify-center">
+                  {hasCandidates && !activeStyle.startsWith('noto') && (
                     <button
                       onClick={() => cycleCandidate(emojiChar, 'prev')}
                       className="h-8 w-8 flex items-center justify-center rounded-sm bg-bg-secondary border border-metal-trim text-text-muted hover:text-white hover:border-accent-blue-active hover:bg-accent-blue-idle/20 transition-all font-mono text-lg leading-none"
@@ -398,6 +398,23 @@ function App() {
                     >
                       ‹
                     </button>
+                  )}
+
+                  {!activeStyle.startsWith('noto') && (
+                    <button
+                      onClick={() => selectCandidate(emojiChar, 'REJECTED')}
+                      className={`h-8 w-8 flex items-center justify-center rounded-sm border transition-all font-mono text-sm leading-none
+                           ${currentIconName === 'REJECTED'
+                          ? 'bg-accent-red-idle border-accent-red-active text-white'
+                          : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-white hover:border-accent-red-active hover:bg-accent-red-idle/20'
+                        }`}
+                      title="Reject / No Match"
+                    >
+                      ✕
+                    </button>
+                  )}
+
+                  {hasCandidates && !activeStyle.startsWith('noto') && (
                     <button
                       onClick={() => cycleCandidate(emojiChar, 'next')}
                       className="h-8 w-8 flex items-center justify-center rounded-sm bg-bg-secondary border border-metal-trim text-text-muted hover:text-white hover:border-accent-blue-active hover:bg-accent-blue-idle/20 transition-all font-mono text-lg leading-none"
@@ -405,12 +422,8 @@ function App() {
                     >
                       ›
                     </button>
-                  </div>
-                )}
-
-                {!hasCandidates && !activeStyle.startsWith('noto') && (
-                  <div className="h-10 mt-auto"></div>
-                )}
+                  )}
+                </div>
               </div>
             );
           })}
