@@ -9,7 +9,7 @@ import * as PiIcons from 'react-icons/pi';
 import * as TbIcons from 'react-icons/tb';
 import * as BiIcons from 'react-icons/bi';
 import * as emoji from 'node-emoji';
-import { vote, isFirebaseConfigured, getVotes, submitSuggestion } from './firebase';
+import { vote, isFirebaseConfigured, getVotes, submitSuggestion, changeVote } from './firebase';
 import type { VoteCounts } from './firebase';
 
 
@@ -220,28 +220,48 @@ function App() {
     if (!firebaseReady) return;
 
     const voteKey = createVoteKey(emojiChar, activeStyle);
+    const currentVote = userVotes[voteKey];
 
-    // Check if user already voted on this mapping
-    if (userVotes[voteKey]) return;
+    // Case 1: Already voted this way -> Do nothing
+    if (currentVote === type) return;
 
     setVotingInProgress(prev => ({ ...prev, [voteKey]: true }));
 
-    const success = await vote(emojiChar, iconName, activeStyle, type);
+    let success = false;
+
+    if (currentVote) {
+      // Case 2: Switching vote (Up -> Down or Down -> Up)
+      success = await changeVote(emojiChar, activeStyle, type);
+      if (success) {
+        setVoteCounts(prev => {
+          const current = prev[voteKey] || { upvotes: 0, downvotes: 0 };
+          return {
+            ...prev,
+            [voteKey]: {
+              upvotes: current.upvotes + (type === 'up' ? 1 : -1),
+              downvotes: current.downvotes + (type === 'down' ? 1 : -1),
+            },
+          };
+        });
+      }
+    } else {
+      // Case 3: New vote
+      success = await vote(emojiChar, iconName, activeStyle, type);
+      if (success) {
+        setVoteCounts(prev => {
+          const current = prev[voteKey] || { upvotes: 0, downvotes: 0 };
+          return {
+            ...prev,
+            [voteKey]: {
+              upvotes: current.upvotes + (type === 'up' ? 1 : 0),
+              downvotes: current.downvotes + (type === 'down' ? 1 : 0),
+            },
+          };
+        });
+      }
+    }
 
     if (success) {
-      // Update local vote counts
-      setVoteCounts(prev => {
-        const current = prev[voteKey] || { upvotes: 0, downvotes: 0 };
-        return {
-          ...prev,
-          [voteKey]: {
-            upvotes: current.upvotes + (type === 'up' ? 1 : 0),
-            downvotes: current.downvotes + (type === 'down' ? 1 : 0),
-          },
-        };
-      });
-
-      // Track user's vote
       const newUserVotes = { ...userVotes, [voteKey]: type };
       setUserVotes(newUserVotes);
       localStorage.setItem('emoji-validator-votes', JSON.stringify(newUserVotes));
@@ -498,30 +518,26 @@ function App() {
                   <div className="flex items-center gap-2 w-full justify-center border-t border-metal-trim/50 pt-3 mt-1">
                     <button
                       onClick={() => handleVote(emojiChar, currentIconName, 'up')}
-                      disabled={!!userVote || isVoting}
+                      disabled={userVote === 'up' || isVoting}
                       className={`flex items-center gap-1 px-2 py-1 rounded-sm text-xs font-mono border transition-all
                         ${userVote === 'up'
-                          ? 'bg-green-500/20 border-green-500 text-green-400'
-                          : userVote
-                            ? 'opacity-40 cursor-not-allowed bg-bg-secondary border-metal-trim text-text-muted'
-                            : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-green-400 hover:border-green-500 hover:bg-green-500/10'
+                          ? 'bg-green-500/20 border-green-500 text-green-400 cursor-default'
+                          : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-green-400 hover:border-green-500 hover:bg-green-500/10'
                         }`}
-                      title={userVote ? "You already voted" : "Good match"}
+                      title={userVote === 'up' ? "You updated this" : "Good match"}
                     >
                       <span>👍</span>
                       <span>{counts.upvotes}</span>
                     </button>
                     <button
                       onClick={() => handleVote(emojiChar, currentIconName, 'down')}
-                      disabled={!!userVote || isVoting}
+                      disabled={userVote === 'down' || isVoting}
                       className={`flex items-center gap-1 px-2 py-1 rounded-sm text-xs font-mono border transition-all
                         ${userVote === 'down'
-                          ? 'bg-red-500/20 border-red-500 text-red-400'
-                          : userVote
-                            ? 'opacity-40 cursor-not-allowed bg-bg-secondary border-metal-trim text-text-muted'
-                            : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-red-400 hover:border-red-500 hover:bg-red-500/10'
+                          ? 'bg-red-500/20 border-red-500 text-red-400 cursor-default'
+                          : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-red-400 hover:border-red-500 hover:bg-red-500/10'
                         }`}
-                      title={userVote ? "You already voted" : "Bad match"}
+                      title={userVote === 'down' ? "You downvoted this" : "Bad match"}
                     >
                       <span>👎</span>
                       <span>{counts.downvotes}</span>

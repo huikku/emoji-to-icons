@@ -89,11 +89,33 @@ export async function vote(
     console.error('Error voting:', error);
     return false;
   }
-  return true;
-} catch (error) {
-  console.error('Error voting:', error);
-  return false;
 }
+
+export async function changeVote(
+  emoji: string,
+  library: string,
+  newType: 'up' | 'down'
+): Promise<boolean> {
+  if (!db) return false;
+
+  try {
+    const voteId = createVoteId(emoji, library);
+    const docRef = doc(db, 'votes', voteId);
+
+    // Atomically switch vote: -1 from old, +1 to new
+    const oldType = newType === 'up' ? 'downvotes' : 'upvotes';
+    const newField = newType === 'up' ? 'upvotes' : 'downvotes';
+
+    await updateDoc(docRef, {
+      [oldType]: increment(-1),
+      [newField]: increment(1)
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error changing vote:', error);
+    return false;
+  }
 }
 
 /**
