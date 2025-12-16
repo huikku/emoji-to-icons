@@ -209,9 +209,7 @@ function App() {
     }
   };
 
-  const clearModifications = () => {
-    setShowResetConfirm(true);
-  };
+
 
   const selectCandidate = (emoji: string, iconName: string) => {
     setModifications(prev => {
