@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
+import * as emoji from 'node-emoji';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -17,9 +18,17 @@ const app = hasConfig ? initializeApp(firebaseConfig) : null;
 const db = app ? getFirestore(app) : null;
 
 // Create a document ID from emoji + library (safe for Firestore)
-function createVoteId(emoji: string, library: string): string {
-  // Convert emoji to hex code points for safe document ID
-  const emojiHex = [...emoji].map(char => char.codePointAt(0)?.toString(16)).join('_');
+function createVoteId(emojiChar: string, library: string): string {
+  // Try to get a readable name first (e.g. 'coffee')
+  const name = emoji.find(emojiChar)?.key;
+
+  if (name) {
+    // Sanitized name (standard chars only)
+    return `${library}_${name.replace(/[^a-zA-Z0-9-_]/g, '')}`;
+  }
+
+  // Fallback to hex if unknown
+  const emojiHex = [...emojiChar].map(char => char.codePointAt(0)?.toString(16)).join('_');
   return `${library}_${emojiHex}`;
 }
 
