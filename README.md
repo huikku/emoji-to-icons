@@ -107,11 +107,13 @@ We welcome contributions! There are two easy ways to help:
 
 ### Option 1: Use the Validator (No Coding Required!)
 
-1. Open the [Emoji Mapping Validator](https://huikku.github.io/emoji-to-icons/)
-2. Browse through the mappings for any icon library
-3. If you spot a mismatch (emoji doesn't match its icon), click the issue link or [open an issue](https://github.com/huikku/emoji-to-icons/issues/new) with:
-   - The emoji and its current mapping
-   - A suggested better icon name (if you have one)
+1.  **Open the Validator**: Go to [huikku.github.io/emoji-to-icons](https://huikku.github.io/emoji-to-icons/).
+2.  **Fix Mappings**: Use the arrow keys to find better icons, or click the red **X** to reject bad matches.
+3.  **Generate Report**: Click the **"REPORT"** button in the top right corner.
+4.  **Submit Issue**: 
+    *   Click **"OPEN GITHUB ISSUE"** (this opens a new tab).
+    *   Back in the Validator, click **"COPY TO CLIPBOARD"**.
+    *   **Paste the report** into the GitHub Issue body and submit!
 
 ### Option 2: Submit a Pull Request
 
