@@ -1,0 +1,51 @@
+name: Bug report
+description: Create a report to help us improve
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: I expected X to happen, but Y happened instead...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: input
+    id: mapping
+    attributes:
+      label: Expected Mapping (if applicable)
+      description: If this is a mapping error, what was the input emoji and expected icon?
+      placeholder: 🤖 -> bot
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        - Browser / OS:
+        - Version:
+      placeholder: |
+        - Browser: Chrome 120
+        - OS: macOS 14
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Copy and paste any relevant logs or error messages.
+      render: shell
