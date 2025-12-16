@@ -24,13 +24,15 @@ We currently support mappings for **7 major icon libraries**:
 
 | Library | Key | Emojis Mapped |
 |---------|-----|---------------|
-| **Lucide** | `lucide` | ~512 |
-| **Heroicons** | `heroicons` | ~512 |
-| **Material Icons** | `material` | ~512 |
-| **Font Awesome 6** | `fontawesome` | ~127 |
-| **Remix Icon** | `remix` | ~61 |
-| **Phosphor Icons** | `phosphor` | ~61 |
-| **Feather Icons** | `feather` | ~52 |
+| **Tabler Icons** | `tabler` | ~930 |
+| **Phosphor Icons** | `phosphor` | ~820 |
+| **Material Icons** | `material` | ~760 |
+| **Remix Icon** | `remix` | ~700 |
+| **BoxIcons** | `boxicons` | ~670 |
+| **Font Awesome 6** | `fontawesome` | ~870 |
+| **Lucide** | `lucide` | ~510 |
+| **Heroicons** | `heroicons` | ~470 |
+| **Feather Icons** | `feather` | ~410 |
 
 ## 🛠️ Installation
 
