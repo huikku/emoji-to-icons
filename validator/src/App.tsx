@@ -434,7 +434,33 @@ function App() {
                 {reportData}
               </pre>
             </div>
-            <div className="p-4 border-t border-[#464B4E] bg-[#1E2328] flex justify-end gap-3">
+            <div className="p-4 border-t border-[#464B4E] bg-[#1E2328] flex justify-end gap-3 flex-wrap">
+              <button
+                onClick={() => {
+                  const blob = new Blob([reportData], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'emoji_modifications.json';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                }}
+                className="px-6 py-2 bg-[#1C8E32] border border-[#3FFF59] text-white rounded-sm text-sm font-medium uppercase tracking-wider hover:bg-[#3FFF59] hover:text-black transition-all"
+              >
+                Download JSON
+              </button>
+              <button
+                onClick={() => {
+                  const subject = encodeURIComponent('Emoji Validator Report');
+                  const body = encodeURIComponent('Please find the attached emoji modification report.');
+                  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                }}
+                className="px-6 py-2 bg-bg-secondary border border-metal-trim text-text-primary rounded-sm text-sm font-medium uppercase tracking-wider hover:bg-frame hover:text-white transition-all"
+              >
+                Email
+              </button>
               <button
                 onClick={() => navigator.clipboard.writeText(reportData)}
                 className="px-6 py-2 bg-[#305575] border border-[#68A9EC] text-white rounded-sm text-sm font-medium uppercase tracking-wider hover:bg-[#68A9EC] transition-all"
