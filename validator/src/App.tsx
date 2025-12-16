@@ -127,7 +127,7 @@ function getIconComponent(style: IconStyle, name: string) {
   }
 }
 
-const NotoPreview = ({ hex, type, emoji }: { hex: string, type: 'color' | 'mono', emoji: string }) => {
+const NotoPreview = ({ type, emoji }: { type: 'color' | 'mono', emoji: string }) => {
   if (type === 'mono') {
     return (
       <span style={{
@@ -157,7 +157,7 @@ const NotoPreview = ({ hex, type, emoji }: { hex: string, type: 'color' | 'mono'
 const IconPreview = ({ style, name, emojiChar }: { style: IconStyle, name: string, emojiChar: string }) => {
   if (style.startsWith('noto')) {
     const type = style === 'noto-color' ? 'color' : 'mono';
-    return <NotoPreview hex={name} type={type} emoji={emojiChar} />;
+    return <NotoPreview type={type} emoji={emojiChar} />;
   }
 
   const Icon = getIconComponent(style, name);

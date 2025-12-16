@@ -4,7 +4,7 @@
 // Since we don't have a database, we'll try to bucket them by keyword heuristics or ranges.
 // Noto/Unicode ordering is generally: Smileys, People, Components, Animals, Food, Travel, Activities, Objects, Symbols, Flags.
 
-export function getEmojiCategory(emojiChar: string, name: string): string {
+export function getEmojiCategory(_emojiChar: string, name: string): string {
     const n = name.toLowerCase();
 
     // Specific specific overrides or high priority keywords first
