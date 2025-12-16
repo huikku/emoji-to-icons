@@ -249,14 +249,21 @@ function App() {
       emojiName.includes(filterText.toLowerCase())
     );
 
+    const isRejected = modifications[activeStyle]?.[emojiChar] === 'REJECTED';
+    const isModified = !!modifications[activeStyle]?.[emojiChar] && !isRejected;
+
     const category = getEmojiCategory(emojiChar, emojiName);
-    const matchesCategory = categoryFilter === 'All' || category.includes(categoryFilter) || (categoryFilter === 'Other' && category === 'Other'); // Simple match
+    let matchesCategory = false;
+    if (categoryFilter === 'All') matchesCategory = true;
+    else if (categoryFilter === 'Rejected') matchesCategory = isRejected;
+    else if (categoryFilter === 'Reassigned') matchesCategory = isModified;
+    else matchesCategory = category.includes(categoryFilter) || (categoryFilter === 'Other' && category === 'Other');
 
     return matchesText && matchesCategory;
   });
 
   // Calculate generic Categories for dropdown
-  const categories = ['All', 'Action', 'Alert', 'Audio & Video', 'Communication', 'Content', 'Device', 'Editor', 'File', 'Hardware', 'Home', 'Image', 'Maps', 'Navigation', 'Notification', 'Places', 'Search', 'Social', 'Toggle', 'Other'];
+  const categories = ['All', 'Rejected', 'Reassigned', 'Action', 'Alert', 'Audio & Video', 'Communication', 'Content', 'Device', 'Editor', 'File', 'Hardware', 'Home', 'Image', 'Maps', 'Navigation', 'Notification', 'Places', 'Search', 'Social', 'Toggle', 'Other'];
 
   const reportData = useMemo(() => JSON.stringify(modifications, null, 2), [modifications]);
 
