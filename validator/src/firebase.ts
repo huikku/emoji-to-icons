@@ -57,7 +57,7 @@ export async function getVotes(emoji: string, library: string): Promise<VoteCoun
 }
 
 export async function vote(
-  emoji: string,
+  emojiChar: string,
   icon: string,
   library: string,
   type: 'up' | 'down'
@@ -65,7 +65,7 @@ export async function vote(
   if (!db) return false;
 
   try {
-    const voteId = createVoteId(emoji, library);
+    const voteId = createVoteId(emojiChar, library);
     const docRef = doc(db, 'votes', voteId);
     const docSnap = await getDoc(docRef);
 
@@ -75,9 +75,11 @@ export async function vote(
         [type === 'up' ? 'upvotes' : 'downvotes']: increment(1),
       });
     } else {
-      // Create new document
+      // Create new document with name
+      const name = emoji.find(emojiChar)?.key || 'unknown';
       await setDoc(docRef, {
-        emoji,
+        emoji: emojiChar,
+        emojiName: name, // Add readable name
         icon,
         library,
         upvotes: type === 'up' ? 1 : 0,
@@ -92,17 +94,17 @@ export async function vote(
 }
 
 export async function changeVote(
-  emoji: string,
+  emojiChar: string,
   library: string,
   newType: 'up' | 'down'
 ): Promise<boolean> {
   if (!db) return false;
 
   try {
-    const voteId = createVoteId(emoji, library);
+    const voteId = createVoteId(emojiChar, library);
     const docRef = doc(db, 'votes', voteId);
 
-    // Atomically switch vote: -1 from old, +1 to new
+    // Atomically switch vote
     const oldType = newType === 'up' ? 'downvotes' : 'upvotes';
     const newField = newType === 'up' ? 'upvotes' : 'downvotes';
 
@@ -122,7 +124,7 @@ export async function changeVote(
  * Record a user's suggestion for a different icon (or rejection)
  */
 export async function submitSuggestion(
-  emoji: string,
+  emojiChar: string,
   library: string,
   proposedIcon: string
 ): Promise<boolean> {
@@ -131,12 +133,14 @@ export async function submitSuggestion(
   try {
     // strict sanitization for doc ID
     const safeIcon = proposedIcon.replace(/[^a-zA-Z0-9-_]/g, '');
-    const suggestionId = `${createVoteId(emoji, library)}_${safeIcon}`;
+    const suggestionId = `${createVoteId(emojiChar, library)}_${safeIcon}`;
     const docRef = doc(db, 'suggestions', suggestionId);
+    const name = emoji.find(emojiChar)?.key || 'unknown';
 
     // Use setDoc with merge to handle both creation and increment
     await setDoc(docRef, {
-      emoji,
+      emoji: emojiChar,
+      emojiName: name, // Add readable name
       library,
       proposedIcon,
       count: increment(1),
