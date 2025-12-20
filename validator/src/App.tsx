@@ -363,92 +363,94 @@ function App() {
   const reportData = useMemo(() => JSON.stringify(modifications, null, 2), [modifications]);
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary font-sans p-8 selection:bg-accent-blue-idle selection:text-white">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="border-b border-metal-trim pb-6 mb-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-            <div>
-              <h1 className="text-3xl font-semibold tracking-wider text-white mb-2 uppercase">Emoji Mapping Validator</h1>
-              <p className="text-text-muted text-sm max-w-2xl font-mono">
-                 // SYSTEM: Use directional controls to cycle alternates. <br />
-                 // AMBER indicators signal modified local overrides.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3 items-center bg-frame p-2 rounded-md border border-metal-trim">
-              <div className="relative group">
-                <select
-                  value={categoryFilter}
-                  onChange={e => setCategoryFilter(e.target.value)}
-                  className="appearance-none bg-bg-secondary border border-metal-trim text-text-primary px-4 py-2 pr-8 rounded-sm text-sm focus:border-accent-blue-active focus:outline-none focus:ring-1 focus:ring-accent-blue-active/50 transition-all hover:bg-bg-secondary/80 w-48 font-mono"
-                >
-                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">▼</div>
+    <div className="min-h-screen bg-bg-primary text-text-primary font-sans selection:bg-accent-blue-idle selection:text-white">
+      <div className="max-w-[1600px] mx-auto px-8">
+        <div className="sticky top-0 z-30 bg-bg-primary pt-8">
+          <div className="border-b border-metal-trim pb-6 mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+              <div>
+                <h1 className="text-3xl font-semibold tracking-wider text-white mb-2 uppercase">Emoji Mapping Validator</h1>
+                <p className="text-text-muted text-sm max-w-2xl font-mono">
+                  // SYSTEM: Use directional controls to cycle alternates. <br />
+                  // AMBER indicators signal modified local overrides.
+                </p>
               </div>
 
-              <button
-                onClick={cycleMonoMode}
-                className={`px-4 py-2 rounded-sm text-sm font-medium border transition-all uppercase tracking-wide
-                    ${monoMode !== 'off'
-                    ? 'bg-accent-blue-idle border-accent-blue-active text-white shadow-[0_0_10px_rgba(48,85,117,0.3)]'
-                    : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-white hover:border-metal-highlight'
-                  }`}
-              >
-                {`MONO: ${monoMode.toUpperCase()}`}
-              </button>
+              <div className="flex flex-wrap gap-3 items-center bg-frame p-2 rounded-md border border-metal-trim">
+                <div className="relative group">
+                  <select
+                    value={categoryFilter}
+                    onChange={e => setCategoryFilter(e.target.value)}
+                    className="appearance-none bg-bg-secondary border border-metal-trim text-text-primary px-4 py-2 pr-8 rounded-sm text-sm focus:border-accent-blue-active focus:outline-none focus:ring-1 focus:ring-accent-blue-active/50 transition-all hover:bg-bg-secondary/80 w-48 font-mono"
+                  >
+                    {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">▼</div>
+                </div>
 
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="SEARCH_DB..."
-                  value={filterText}
-                  onChange={(e) => setFilterText(e.target.value)}
-                  className="bg-bg-secondary border border-metal-trim text-text-primary pl-4 pr-10 py-2 rounded-sm text-sm focus:border-accent-blue-active focus:outline-none focus:ring-1 focus:ring-accent-blue-active/50 w-64 placeholder-metal-base font-mono"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-metal-base">🔍</div>
-              </div>
-
-              <button
-                className="px-4 py-2 bg-accent-blue-idle/20 border border-accent-blue-idle text-accent-blue-active hover:bg-accent-blue-idle/40 hover:text-white rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
-                onClick={() => setShowReport(true)}
-              >
-                Report <span className="ml-1 font-mono text-xs opacity-70">[{Object.values(modifications).reduce((acc, m) => acc + Object.keys(m).length, 0)}]</span>
-              </button>
-
-              {Object.keys(modifications).length > 0 && (
                 <button
-                  onClick={() => setShowResetConfirm(true)}
-                  className="px-4 py-2 bg-accent-red-idle/20 border border-accent-red-idle text-accent-red-active hover:bg-accent-red-idle/40 hover:text-white rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
+                  onClick={cycleMonoMode}
+                  className={`px-4 py-2 rounded-sm text-sm font-medium border transition-all uppercase tracking-wide
+                      ${monoMode !== 'off'
+                      ? 'bg-accent-blue-idle border-accent-blue-active text-white shadow-[0_0_10px_rgba(48,85,117,0.3)]'
+                      : 'bg-bg-secondary border-metal-trim text-text-muted hover:text-white hover:border-metal-highlight'
+                    }`}
                 >
-                  RESET
+                  {`MONO: ${monoMode.toUpperCase()}`}
                 </button>
-              )}
+
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="SEARCH_DB..."
+                    value={filterText}
+                    onChange={(e) => setFilterText(e.target.value)}
+                    className="bg-bg-secondary border border-metal-trim text-text-primary pl-4 pr-10 py-2 rounded-sm text-sm focus:border-accent-blue-active focus:outline-none focus:ring-1 focus:ring-accent-blue-active/50 w-64 placeholder-metal-base font-mono"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-metal-base">🔍</div>
+                </div>
+
+                <button
+                  className="px-4 py-2 bg-accent-blue-idle/20 border border-accent-blue-idle text-accent-blue-active hover:bg-accent-blue-idle/40 hover:text-white rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
+                  onClick={() => setShowReport(true)}
+                >
+                  Report <span className="ml-1 font-mono text-xs opacity-70">[{Object.values(modifications).reduce((acc, m) => acc + Object.keys(m).length, 0)}]</span>
+                </button>
+
+                {Object.keys(modifications).length > 0 && (
+                  <button
+                    onClick={() => setShowResetConfirm(true)}
+                    className="px-4 py-2 bg-accent-red-idle/20 border border-accent-red-idle text-accent-red-active hover:bg-accent-red-idle/40 hover:text-white rounded-sm text-sm font-medium uppercase tracking-wider transition-all"
+                  >
+                    RESET
+                  </button>
+                )}
+              </div>
             </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-metal-trim pb-1">
+            {Object.keys(MAPPINGS).map(style => {
+              const isActive = activeStyle === style;
+              const label = style === 'noto-color' ? 'Noto Color' : style === 'noto-mono' ? 'Noto Mono' : style;
+              return (
+                <button
+                  key={style}
+                  className={`px-5 py-2 text-sm font-medium uppercase tracking-wider rounded-t-sm transition-all border-t border-x mb-[-1px]
+                    ${isActive
+                      ? 'bg-bg-primary border-metal-trim border-b-bg-primary text-accent-blue-active relative z-10'
+                      : 'bg-bg-secondary/50 border-transparent text-text-muted hover:text-text-primary hover:bg-bg-secondary'
+                    }`}
+                  onClick={() => setActiveStyle(style as IconStyle)}
+                >
+                  {label}
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-metal-trim pb-1">
-          {Object.keys(MAPPINGS).map(style => {
-            const isActive = activeStyle === style;
-            const label = style === 'noto-color' ? 'Noto Color' : style === 'noto-mono' ? 'Noto Mono' : style;
-            return (
-              <button
-                key={style}
-                className={`px-5 py-2 text-sm font-medium uppercase tracking-wider rounded-t-sm transition-all border-t border-x mb-[-1px]
-                  ${isActive
-                    ? 'bg-bg-primary border-metal-trim border-b-bg-primary text-accent-blue-active relative z-10'
-                    : 'bg-bg-secondary/50 border-transparent text-text-muted hover:text-text-primary hover:bg-bg-secondary'
-                  }`}
-                onClick={() => setActiveStyle(style as IconStyle)}
-              >
-                {label}
-              </button>
-            )
-          })}
-        </div>
-
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5 pb-8">
           {items.map(([emojiChar, defaultIcon]) => {
             const modification = modifications[activeStyle]?.[emojiChar];
             const isRejected = modification === 'REJECTED';
