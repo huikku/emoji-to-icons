@@ -43,6 +43,14 @@
   ],
   "author": "Huikku",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huikku/emoji-to-icons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huikku/emoji-to-icons/issues"
+  },
+  "homepage": "https://github.com/huikku/emoji-to-icons#readme",
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
@@ -58,5 +66,8 @@
   },
   "dependencies": {
     "node-emoji": "^2.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

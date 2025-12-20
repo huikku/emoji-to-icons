@@ -65,8 +65,6 @@ This is the most common way to contribute! If you see an emoji mapping that is m
     ```
 4.  Run the Validator locally:
     ```bash
-    cd validator
-    npm install
     npm run dev
     ```
 

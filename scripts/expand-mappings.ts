@@ -37,7 +37,23 @@ const EXISTING_MAPPINGS: any = {
 // Helper to normalize strings for comparison (remove spaces, lowercase)
 const normalize = (str: string) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-const REACT_ICONS_PATH = path.join(process.cwd(), 'validator/node_modules/react-icons');
+const findReactIconsPath = () => {
+    const paths = [
+        path.join(process.cwd(), 'validator/node_modules/react-icons'),
+        path.join(process.cwd(), 'node_modules/react-icons'),
+    ];
+    for (const p of paths) {
+        if (fs.existsSync(p)) return p;
+    }
+    // Fallback if not found locally, try to resolve via node
+    try {
+        return path.dirname(require.resolve('react-icons/package.json'));
+    } catch (e) {
+        return paths[0]; // Fallback to original
+    }
+};
+
+const REACT_ICONS_PATH = findReactIconsPath();
 
 async function getAvailableIcons(libPath: string, prefix: string) {
     const dtsPath = path.join(REACT_ICONS_PATH, libPath, 'index.d.ts');
